@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  USER
+  ADMIN
+  MODERATOR
+}
+
+model User {
+  id                  String    @id @default(uuid())
+  name                String
+  email               String    @unique
+  password            String
+  role                Role      @default(USER)
+  avatar              String?
+  isActive            Boolean   @default(true)
+  emailVerified       Boolean   @default(false)
+  verifyToken         String?
+  verifyTokenExpiry   DateTime?
+  resetToken          String?
+  resetTokenExpiry    DateTime?
+  tokenVersion      Int       @default(0)
+  failedLoginAttempts Int     @default(0)
+  lockedUntil       DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@index([email])
+  @@index([verifyToken])
+  @@index([resetToken])
+}

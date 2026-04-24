@@ -1,0 +1,11 @@
+node_modules
+dist
+.env
+uploads
+.claude
+*.md
+!README.md
+
+/prisma/migrations
+repomix-output.xml
+logs
